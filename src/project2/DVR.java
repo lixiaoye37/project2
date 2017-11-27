@@ -124,7 +124,7 @@ public class DVR {
             } else if (command.contains("exit")) { 
                 Server.crash();
                 success = true;
-                System.out.println("Program now exiting...");
+                System.out.println("Thank you for using,GOOD BYE");
                 
             } else {
                 System.out.println("Command '" + values[0] + "' not recognized!");

@@ -8,7 +8,7 @@ public class Server {
     
     static final boolean DEBUG_MODE = true;
     
-    static Map<Integer, HashMap<Integer, Integer>> routingTables; // neighbor, neighborofneighbor, cost between neighbor and their neighbors
+    static Map<Integer, HashMap<Integer, Integer>> routingTables; 
     static Map<String, Integer> neighborIpToId;
     static Map<Integer, Node> neighbors;
     static Map<Integer, Integer> edges;
@@ -56,14 +56,14 @@ public class Server {
             try{
                 
                 while(!isCrashed){
-                    Thread.sleep(time * 1000);  //1000 milliseconds is one second.
+                    Thread.sleep(time * 1000);  
                     if (!isCrashed ){
                         Server.updateAll();
                     }
                     
                 }
             } catch (Exception e){
-                System.out.println("Not able to run.");
+                System.out.println("Unable to run.");
                 e.printStackTrace();
             }
         }).start();
@@ -75,48 +75,15 @@ public class Server {
     public int getPortNumber() {
         return listeningPort;
     }
-    /*
-     
-     Number_of_update_fields        Server_port
-     Server_IP
-     
-     
-     Server_IP_address_1
-     Server_port_1       0x0
-     Server_ID_1       Cost_1
-     
-     
-     Server_IP_address_2
-     Server_port_2       0x0
-     Server_ID_2       Cost_2
-     
-     ....
-     ....
-     
-     
-     */
+   
     public void processRecvdPacketData(String data) {
         
         String [] message = data.split(",");
         
-        //System.out.println("Received message: " + data + " which has " + messageElements.length + " elements");
+      
         int i = 0;
         
-        /*
-         String message = "";
-         message += edges.size() + ",";
-         message += neighbors.get(myID).port + ",";
-         message += neighbors.get(myID).ip + ",";
-         for(Integer neighborId : neighbors.keySet()){
-         
-         message += neighbors.get(neighborId).ip + ",";
-         message += neighbors.get(neighborId).port + ",";
-         message += neighborId + ",";
-         message += edges.get(neighborId) + ",";
-         
-         }
-         
-         */
+        
         
         int numUpdates = Integer.parseInt(message[0]);
         String serverPort = message[1];
@@ -163,36 +130,13 @@ public class Server {
             
             routingTables.get(serverId).put(neighborId, neighborCost);
         }
-        /*
-        System.out.println("\n\nUpdated table:");
-        
-        for(Integer id : routingTables.keySet()) {
-            
-            System.out.println("Server "+id+":");
-            System.out.println("+---+---+-----+");
-            
-            for(Integer neighbId : routingTables.get(id).keySet() ){
-                String curCost = (routingTables.get(id).get(neighbId) == Integer.MAX_VALUE) ? "inf" : (routingTables.get(id).get(neighbId) + "");
-                
-                System.out.println("| " + id + " | " +neighbId+" | " + curCost +" | ");
-                System.out.println("+---+---+-----+");
-            }
-            System.out.println("");
-        }
-        */
-        
         
         if(serverId != myID && isCrashed == false){
             System.out.println("\nMESSAGE RECEIVED FROM SERVER " + serverId);
         }
         
         
-        //PRINTS OUT THE MESSAGE ELEMENTS
-        
-        /*for(String str : messageElements){
-         System.out.println("element " + i++ + ": " + str);
-         
-         }*/
+       
         
         
     }
